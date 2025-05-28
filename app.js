@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 
 import cookieParser from "cookie-parser";
+import authRouter from "./routes/auth.route";
 
 export const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ credentials: true }));
 
-app.get('/',(req,res)=>{
-    res.send("API working hddh")
-})
+
+// API Endpoints --> routes declaration
+app.use('/api/auth',authRouter)
+
