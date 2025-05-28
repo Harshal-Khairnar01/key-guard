@@ -41,7 +41,6 @@ export const register = async (req, res, next) => {
     return res.json({
       success: true,
     });
-    
   } catch (error) {
     return res.json({
       success: false,
@@ -89,6 +88,25 @@ export const login = async (req, res) => {
 
     return res.json({
       success: true,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
+    return res.json({
+      success: true,
+      message: "Logout Successfully",
     });
   } catch (error) {
     return res.json({
