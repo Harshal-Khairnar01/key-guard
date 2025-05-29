@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/user.model";
+import User from "../models/user.model.js";
+import transporter from "../utils/nodemailer.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -38,6 +39,16 @@ export const register = async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    // sending welcome email
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "Welcome to mern auth",
+      text: `Your ${email} has linked with your account!`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
     return res.json({
       success: true,
     });
@@ -68,6 +79,7 @@ export const login = async (req, res) => {
       });
     }
     const isMatched = await bcrypt.compare(password, user.password);
+
     if (!isMatched) {
       return res.json({
         success: false,
@@ -90,6 +102,7 @@ export const login = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    console.log(error);
     return res.json({
       success: false,
       message: error.message,

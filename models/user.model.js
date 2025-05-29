@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const emailRegexPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -22,7 +24,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your password"], // for social auth
     minlength: [6, "Password must be atleast 6 characters!"],
-    select: false,
+    validate: {
+      validator: function (value) {
+        return value && value.trim().length >= 6;
+      },
+      message: "Password must be at least 6 characters and not empty",
+    },
   },
   verifyOtp: {
     type: String,
