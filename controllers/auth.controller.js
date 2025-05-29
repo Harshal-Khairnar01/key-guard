@@ -289,7 +289,7 @@ export const resetPassword = async (req, res) => {
   }
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({email});
     if (!user) {
       return res.json({
         success: false,
