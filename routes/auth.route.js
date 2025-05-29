@@ -6,6 +6,8 @@ import {
   sendVerifyOtp,
   verifyEmail,
   isAuthenticated,
+  sendPasswordResetOtp,
+  resetPassword,
 } from "../controllers/auth.controller.js";
 import userAuth from "../middleware/userAuth.js";
 
@@ -19,5 +21,8 @@ authRouter.post("/send-verify-otp", userAuth, sendVerifyOtp);
 authRouter.post("/verify-account", userAuth, verifyEmail);
 
 authRouter.post("/is-authenticated", userAuth, isAuthenticated);
+
+authRouter.post("/send-password-reset-otp", userAuth, sendPasswordResetOtp);
+authRouter.post("/reset-password", userAuth, resetPassword);
 
 export default authRouter;
