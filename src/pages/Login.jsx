@@ -5,19 +5,58 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
 
-    const navigate=useNavigate();
+  const { backendUrl, setIsLoggedIn } = useContext(AppContext);
 
   const [state, setState] = useState("Sign Up");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      axios.defaults.withCredentials = true;
+      if (state === "Sign Up") {
+        const { data } = await axios.post(backendUrl + "/api/auth/register", {
+          name,
+          email,
+          password,
+        });
+        if (data.success) {
+          setIsLoggedIn(true);
+          navigate("/");
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/auth/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+          setIsLoggedIn(true);
+          navigate("/");
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className=" flex items-center justify-center min-h-screen sm:px-0 bg-gradient-to-br from-yellow-200 to-pink-400">
       <img
-      onClick={()=>navigate('/')}
+        onClick={() => navigate("/")}
         src={assets.logo}
         alt=""
         className=" absolute left-5 sm:left-20  top-5 w-20 sm:w-20 cursor-pointer"
@@ -32,7 +71,7 @@ const Login = () => {
             : "Login to your account!"}
         </p>
 
-        <form action="" className=" text-gray-800">
+        <form onSubmit={onSubmitHandler}>
           {state === "Sign Up" && (
             <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#ad54d6]">
               <FaUser />
@@ -70,8 +109,9 @@ const Login = () => {
             />
           </div>
           <p
-          onClick={()=>navigate('/reset-password')}
-          className="ml-2 mb-4  text-indigo-200  cursor-pointer">
+            onClick={() => navigate("/reset-password")}
+            className="ml-2 mb-4  text-indigo-200  cursor-pointer"
+          >
             Forgot Password?
           </p>
           <button className=" w-full py-2.5 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-medium cursor-pointer">
