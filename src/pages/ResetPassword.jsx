@@ -89,13 +89,19 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className=" flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-300 to-purple-500">
-      <img
-        src={assets.logo}
-        alt=""
-        className=" absolute left-5  sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
-        onClick={() => navigate("/")}
-      />
+    <div className=" flex flex-col min-h-screen sm:px-0 bg-[#0d6063]">
+         <div className=" mt-2 flex justify-between items-center lg:px-20 px-2">
+           <img
+             onClick={() => navigate("/")}
+             src={assets.logo}
+             alt="KeyGuard"
+             className=" w-20"
+           />
+           <h1 className=" text-2xl font-semibold text-amber-400">KeyGuard</h1>
+         </div>
+
+<div className=" m-auto">
+
 
       {/* enter email id  */}
 
@@ -182,6 +188,7 @@ const ResetPassword = () => {
           </button>
         </form>
       )}
+      </div>
     </div>
   );
 };
