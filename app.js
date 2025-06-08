@@ -9,7 +9,7 @@ import userRouter from "./routes/user.route.js";
 
 export const app = express();
 
-const allowedOrigins=['http://localhost:5173']
+const allowedOrigins=process.env.ALLOWED_ORIGIN
 
 app.use(express.json());
 app.use(cookieParser());
@@ -19,4 +19,10 @@ app.use(cors({origin:allowedOrigins, credentials: true }));
 // API Endpoints --> routes declaration
 app.use('/api/auth',authRouter)
 app.use('/api/user',userRouter)
+
+app.get("/ping", (req, res) => {
+  res.send("Server is running 🚀");
+});
+
+
 
