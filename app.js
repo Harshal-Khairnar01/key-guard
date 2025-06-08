@@ -9,7 +9,8 @@ import userRouter from "./routes/user.route.js";
 
 export const app = express();
 
-const allowedOrigins=process.env.ALLOWED_ORIGIN
+const allowedOrigins = process.env.ALLOWED_ORIGIN.split(",");
+
 
 app.use(express.json());
 app.use(cookieParser());
