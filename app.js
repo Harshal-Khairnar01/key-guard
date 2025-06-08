@@ -9,9 +9,11 @@ import userRouter from "./routes/user.route.js";
 
 export const app = express();
 
+const allowedOrigins=['http://localhost:5173']
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true }));
+app.use(cors({origin:allowedOrigins, credentials: true }));
 
 
 // API Endpoints --> routes declaration
