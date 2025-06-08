@@ -70,6 +70,7 @@ const EmailVerify = () => {
         src={assets.logo}
         alt=""
         className=" absolute left-5  sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
+        onClick={()=>navigate('/')}
       />
 
       <form
