@@ -56,15 +56,19 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center min-h-screen sm:px-0 bg-gradient-to-br from-yellow-200 to-pink-400">
-      <img
-        onClick={() => navigate("/")}
-        src={assets.logo}
-        alt=""
-        className=" absolute left-5 sm:left-20  top-5 w-20 sm:w-20 cursor-pointer"
-      />
-      <div className="   bg-pink-900 p-10  rounded-lg shadow-lg w-full sm:w-96 text-indigo-300  text-sm">
-        <h2 className=" text-3xl font-semibold text-white text-center mb-3">
+    <div className=" flex flex-col min-h-screen sm:px-0 bg-[#0d6063]">
+      <div className=" mt-2 flex justify-between items-center lg:px-20 px-2">
+        <img
+          onClick={() => navigate("/")}
+          src={assets.logo}
+          alt="KeyGuard"
+          className=" w-20"
+        />
+        <h1 className=" text-2xl font-semibold text-amber-400">KeyGuard</h1>
+      </div>
+
+      <div className=" m-auto    p-10  rounded-lg shadow-lg  sm:w-96  text-sm bg-white">
+        <h2 className=" text-3xl font-semibold text-[#18494b] text-center mb-3">
           {state === "Sign Up" ? "Create Account" : "Login "}
         </h2>
         <p className=" text-center text-sm mb-6">
@@ -75,7 +79,7 @@ const Login = () => {
 
         <form onSubmit={onSubmitHandler}>
           {state === "Sign Up" && (
-            <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#ad54d6]">
+            <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full  border">
               <FaUser />
               <input
                 onChange={(e) => setName(e.target.value)}
@@ -88,7 +92,7 @@ const Login = () => {
             </div>
           )}
 
-          <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#ad54d6]">
+          <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full  border">
             <MdEmail />
             <input
               onChange={(e) => setEmail(e.target.value)}
@@ -99,7 +103,7 @@ const Login = () => {
               className="  text-gray-800 bg-transparent outline-none"
             />
           </div>
-          <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#ad54d6]">
+          <div className=" mb-4  flex items-center gap-3 w-full px-5 py-2.5 rounded-full border ">
             <RiLockPasswordFill />
             <input
               onChange={(e) => setPassword(e.target.value)}
@@ -112,30 +116,30 @@ const Login = () => {
           </div>
           <p
             onClick={() => navigate("/reset-password")}
-            className="ml-2 mb-4  text-indigo-200  cursor-pointer"
+            className="ml-2 mb-4   text-[#0d6063]  cursor-pointer"
           >
             Forgot Password?
           </p>
-          <button className=" w-full py-2.5 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-medium cursor-pointer">
+          <button className=" w-full py-2.5 rounded-full bg-[#f2ba00]  text-white font-medium cursor-pointer ">
             {state}
           </button>
         </form>
         {state === "Sign Up" ? (
-          <p className="  text-gray-400 text-center text-xs mt-4">
+          <p className="  text-gray-600 text-center text-xs mt-4">
             Already have an account?{" "}
             <span
               onClick={() => setState("Login")}
-              className=" text-blue-400 cursor-pointer underline"
+              className=" text-[#0d6063] cursor-pointer underline"
             >
               Login here
             </span>
           </p>
         ) : (
-          <p className="  text-gray-400 text-center text-xs mt-4">
+          <p className="  text-gray-600 text-center text-xs mt-4">
             Don't have an account?{" "}
             <span
               onClick={() => setState("Sign Up")}
-              className=" text-blue-400 cursor-pointer underline"
+              className=" text-[#0d6063] cursor-pointer underline"
             >
               Sign Up
             </span>
