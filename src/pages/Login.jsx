@@ -29,7 +29,9 @@ const Login = () => {
           name,
           email,
           password,
-        });
+        },
+      { withCredentials: true }
+      );
         if (data.success) {
           setIsLoggedIn(true);
           navigate("/");
@@ -41,7 +43,9 @@ const Login = () => {
         const { data } = await axios.post(backendUrl + "/api/auth/login", {
           email,
           password,
-        });
+        },
+      { withCredentials: true }
+      );
         if (data.success) {
           setIsLoggedIn(true);
           getUserData();
