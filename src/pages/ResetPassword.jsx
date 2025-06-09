@@ -126,7 +126,7 @@ const ResetPassword = () => {
               />
             </div>
             <button className=" w-full py-2.5 bg-[#074547] rounded-full text-white cursor-pointer mt-3">
-              Verify Email
+              Reset Password
             </button>
           </form>
         )}
@@ -189,7 +189,7 @@ const ResetPassword = () => {
               />
             </div>
             <button className=" w-full py-2.5  bg-[#074547] rounded-full text-white cursor-pointer mt-3">
-              Verify Email
+              Submit
             </button>
           </form>
         )}
