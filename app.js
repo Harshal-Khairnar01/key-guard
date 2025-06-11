@@ -9,7 +9,9 @@ import userRouter from "./routes/user.route.js";
 
 export const app = express();
 
-const allowedOrigins = process.env.ALLOWED_ORIGIN.split(",");
+app.set("trust proxy", 1);
+
+const allowedOrigins = process.env.ALLOWED_ORIGIN.split(",")||[];
 
 
 app.use(express.json());
