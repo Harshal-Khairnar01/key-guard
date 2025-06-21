@@ -39,21 +39,28 @@ export const register = async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-   
-
     // sending welcome email
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: email,
-      subject: "Welcome to mern auth",
-      text: `Your ${email} has linked with your account!`,
+      subject: "Welcome to KeyGuard!",
+      html: `
+    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f8f9fa;">
+      <h2 style="color: #0d6063;">Welcome to <span style="color: #f2ba00;">KeyGuard</span> 👋</h2>
+      <p>Hello <strong>${email}</strong>,</p>
+      <p>We're thrilled to have you on board. Your email has been successfully linked to your KeyGuard account.</p>
+      <p>Start exploring now and stay secure!</p>
+      <br />
+      <p>Warm regards,<br><strong>KeyGuard Team</strong></p>
+    </div>
+  `,
     };
 
     await transporter.sendMail(mailOptions);
 
     return res.json({
       success: true,
-      token
+      token,
     });
   } catch (error) {
     return res.json({
@@ -103,7 +110,7 @@ export const login = async (req, res) => {
 
     return res.json({
       success: true,
-      token
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -154,8 +161,18 @@ export const sendVerifyOtp = async (req, res) => {
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: user.email,
-      subject: "Account Verification OTP",
-      text: `Your OTP is ${otp}. Verify Your Account!`,
+      subject: "Verify Your Email - KeyGuard",
+      html: `
+    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+      <h2 style="color: #0d6063;">Verify Your Email</h2>
+      <p>Hi <strong>${user.name || user.email}</strong>,</p>
+      <p>Use the OTP below to verify your KeyGuard account:</p>
+      <h1 style="letter-spacing: 4px; color: #0d6063;">${otp}</h1>
+      <p>This OTP is valid for <strong>24 hours</strong>. Please do not share this with anyone.</p>
+      <br />
+      <p>Thanks & Regards,<br><strong>KeyGuard Security</strong></p>
+    </div>
+  `,
     };
 
     await transporter.sendMail(mailOptions);
@@ -265,8 +282,18 @@ export const sendPasswordResetOtp = async (req, res) => {
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: user.email,
-      subject: "Account Verification OTP",
-      text: `Your OTP for resetting your password is ${otp}. Reset Your Account Password!`,
+      subject: "Reset Your Password - KeyGuard",
+      html: `
+    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #fffaf0;">
+      <h2 style="color: #d9534f;">Password Reset Request</h2>
+      <p>Hello <strong>${user.name || user.email}</strong>,</p>
+      <p>We received a request to reset your KeyGuard password. Please use the OTP below:</p>
+      <h1 style="letter-spacing: 3px; color: #d9534f;">${otp}</h1>
+      <p>This OTP is valid for 24 hours. If you didn’t request this, please ignore this email.</p>
+      <br />
+      <p>Regards,<br><strong>KeyGuard Support</strong></p>
+    </div>
+  `,
     };
 
     await transporter.sendMail(mailOptions);
@@ -294,7 +321,7 @@ export const resetPassword = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     if (!user) {
       return res.json({
         success: false,
