@@ -10,13 +10,15 @@ export const AppContextProvider = (props) => {
   axios.defaults.withCredentials = true;
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-   console.log("Backend URL is:", backendUrl);
+  console.log("Backend URL is:", backendUrl);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(false);
 
   const getAuthState = async () => {
     try {
-       const { data } = await axios.get(`${backendUrl}/api/auth/is-authenticated`);
+      const { data } = await axios.get(
+        `${backendUrl}/api/auth/is-authenticated`
+      );
 
       if (data.success) {
         setIsLoggedIn(true);
@@ -29,7 +31,7 @@ export const AppContextProvider = (props) => {
 
   const getUserData = async () => {
     try {
-     const { data } = await axios.get(`${backendUrl}/api/user/user-info`);
+      const { data } = await axios.get(`${backendUrl}/api/user/user-info`);
 
       data.success ? setUserData(data.userData) : toast.error(data.message);
     } catch (error) {
@@ -37,6 +39,10 @@ export const AppContextProvider = (props) => {
     }
   };
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
     getAuthState();
   }, []);
 
