@@ -39,6 +39,8 @@ export const register = async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+   
+
     // sending welcome email
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
@@ -51,6 +53,7 @@ export const register = async (req, res, next) => {
 
     return res.json({
       success: true,
+      token
     });
   } catch (error) {
     return res.json({
@@ -100,6 +103,7 @@ export const login = async (req, res) => {
 
     return res.json({
       success: true,
+      token
     });
   } catch (error) {
     console.log(error);

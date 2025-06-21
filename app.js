@@ -14,6 +14,16 @@ app.set("trust proxy", 1);
 const allowedOrigins = process.env.ALLOWED_ORIGIN.split(",")||[];
 
 
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    }
+    next();
+  });
+}
+
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({origin:allowedOrigins, credentials: true }));
