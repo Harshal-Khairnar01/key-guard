@@ -32,6 +32,8 @@ const Navbar = () => {
     try {
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + "/api/auth/logout");
+      localStorage.removeItem("token");
+      delete axios.defaults.headers.common["Authorization"];
       data.success && setIsLoggedIn(false);
       data.success && setUserData(false);
       navigate("/");
